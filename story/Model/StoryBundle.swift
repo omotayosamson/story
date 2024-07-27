@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-struct StoryBundle: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct StoryBundle: Identifiable, Hashable{
+    var id = UUID().uuidString
+    var name: String
+    var isSeen: Bool = false
+    var stories: [Story]
 }
 
-#Preview {
-    StoryBundle()
+struct Story: Identifiable, Hashable{
+    var id = UUID().uuidString
+    var videoURL: String
 }

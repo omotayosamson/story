@@ -7,12 +7,10 @@
 
 import SwiftUI
 
-struct preferencekeys: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct OffsetKey: PreferenceKey {
+    static  var defaultValue: CGRect = .zero
+    
+    static func reduce(value: inout CGRect, nextValue: () -> CGRect) {
+        value = nextValue()
     }
-}
-
-#Preview {
-    preferencekeys()
 }

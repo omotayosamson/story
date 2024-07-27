@@ -7,12 +7,25 @@
 
 import SwiftUI
 
-struct StoryViewModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    StoryViewModel()
+class StoryViewModel: ObservableObject{
+    @Published var stories: [StoryBundle] = [
+        StoryBundle(name: "Dribbles", stories: [
+            Story(videoURL: "01"),
+            Story(videoURL: "02"),
+            Story(videoURL: "03"),
+        ]),
+        
+        StoryBundle(name: "Tackles", stories: [
+            Story(videoURL: "04"),
+            Story(videoURL: "02"),
+            Story(videoURL: "03"),
+            Story(videoURL: "01"),
+        ]),
+    ]
+    
+    @Published var showStory: Bool =  false
+    
+    @Published var currentStory: String = ""
+    
+    
 }
