@@ -9,6 +9,8 @@ import SwiftUI
 
 struct Home: View {
     @StateObject var storyData = StoryViewModel()
+    var size: CGSize
+    var safeArea: EdgeInsets
     var body: some View {
         NavigationStack{
             ScrollView(.vertical, showsIndicators: false){
@@ -31,7 +33,7 @@ struct Home: View {
             }
             //
             .overlay(
-                StoryView()
+                StoryView(size: size, safeArea: safeArea)
                     .environmentObject(storyData)
             )
         }
@@ -43,8 +45,7 @@ struct ProfileView: View {
     @Environment(\.colorScheme) var scheme
     @EnvironmentObject var storyData: StoryViewModel
     var body: some View {
-//        VStack {
-//            Button(action: /*@START_MENU_TOKEN@*/ {}/*@END_MENU_TOKEN@*/, label: {
+
         Text(bundle.name)
                     .font(.system(size: 12))
                     .fontWeight(.heavy)
@@ -67,17 +68,10 @@ struct ProfileView: View {
                             storyData.showStory = true
                         }
                     }
-//            })
-//            Text("Dribbles")
-//                .font(.system(size: 14))
-//                .fontWeight(.bold)
-//                .frame(minWidth: 62, maxWidth: 62)
-//        }
+
     }
 }
 
 
 
-#Preview {
-    Home()
-}
+

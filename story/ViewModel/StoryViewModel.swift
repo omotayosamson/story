@@ -9,17 +9,17 @@ import SwiftUI
 
 class StoryViewModel: ObservableObject{
     @Published var stories: [StoryBundle] = [
-        StoryBundle(name: "Dribbles", stories: [
-            Story(videoURL: "01"),
-            Story(videoURL: "02"),
-            Story(videoURL: "03"),
+        StoryBundle(name: "A", stories: [
+            Story(videoURL: "Reel 1"),
+            Story(videoURL: "Reel 2"),
+            Story(videoURL: "Reel 3"),
         ]),
         
-        StoryBundle(name: "Tackles", stories: [
-            Story(videoURL: "04"),
-            Story(videoURL: "02"),
-            Story(videoURL: "03"),
-            Story(videoURL: "01"),
+        StoryBundle(name: "B", stories: [
+            Story(videoURL: "Reel 2"),
+            Story(videoURL: "Reel 3"),
+            Story(videoURL: "Reel 1"),
+            Story(videoURL: "Reel 3"),
         ]),
     ]
     

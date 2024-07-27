@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
-
+import AVKit
 struct StoryView: View {
     @EnvironmentObject var storyData: StoryViewModel
+    var size: CGSize
+    var safeArea: EdgeInsets
     var body: some View {
         if storyData.showStory{
             
@@ -16,7 +18,11 @@ struct StoryView: View {
                     content:  {
                 
                 ForEach($storyData.stories){$bundle in
-                    StoryCardView(bundle: $bundle)
+                    StoryCardView(
+                        bundle: $bundle,
+                        size: size,
+                        safeArea: safeArea
+                    )
                         .environmentObject(storyData)
                 }
                 
@@ -35,14 +41,6 @@ struct StoryView: View {
     ContentView()
 }
 
-//struct StoryView_Preview: PreviewProvider{
-//    static let storyData = StoryViewModel()
-//    static var previews: some View{
-//        StoryView()
-//            .environmentObject(storyData)
-//    }
-//}
-
 
 struct StoryCardView: View {
     @Binding var bundle: StoryBundle
@@ -52,27 +50,54 @@ struct StoryCardView: View {
     @State var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     //progress...
     @State var timerProgress: CGFloat = 0
+    var size: CGSize
+    var safeArea: EdgeInsets
+    @State private var player: AVPlayer?
+    @State private var looper: AVPlayerLooper?
+    
     
     var body: some View {
          
 //For 3D Rotation
         GeometryReader{proxy in
-            ZStack{
+            
+                
+            let rect = proxy.frame(in: .scrollView(axis: .horizontal))
+                
+                CustomVideoPlayer(player: $player)
+                
+                    .preference(key: OffsetKey.self, value: rect)
+                    .onPreferenceChange(OffsetKey.self, perform: { value in
+                        playPause(value)
+                    })
+                    .overlay(alignment: .bottom, content: {
+                        StoryDetailsView()
+                    })
+                
+                    
+                
+                   
+                
+                    .onAppear{
+                        guard player == nil else {return}
+                        let index = min(Int(timerProgress), bundle.stories.count - 1)
+                        guard let bundleID = Bundle.main.path(forResource: bundle.stories[index].videoURL, ofType: "mp4") else {return}
+                        let videoURL = URL(filePath: bundleID)
+                        
+                        let playerItem = AVPlayerItem(url: videoURL)
+                        let queue = AVQueuePlayer(playerItem: playerItem)
+                        looper = AVPlayerLooper(player: queue, templateItem: playerItem)
+                        
+                        player = queue
+                        
+                    }
+                    .onDisappear{
+                        player = nil
+                    }
                 
                 
-                //Getting current index.....
-                //and updating data....
-                
-                let index = min(Int(timerProgress), bundle.stories.count - 1)
-                
-                
-                    Image(bundle.stories[index].videoURL)
-                        .resizable()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding(.bottom)
-                
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            //}
+
             
             
             //tapping to next & prev
@@ -104,6 +129,19 @@ struct StoryCardView: View {
                             }
                         }
                 }
+                    .onLongPressGesture(minimumDuration: .infinity){ isPressing in
+                        if isPressing {
+                            player?.pause()
+                          
+                        }else{
+                            player?.play()
+                        }
+                        
+                    } perform: {
+                        player?.pause()
+                        
+                        
+                    }
             )
             .overlay(
                 Button(action: {
@@ -157,6 +195,7 @@ struct StoryCardView: View {
                 ,alignment: .top
             )
             
+            //rotatin
             .rotation3DEffect(
                 getAngle(proxy: proxy),
                 axis: (x: 0, y: 1, z: 0),
@@ -189,6 +228,51 @@ struct StoryCardView: View {
         })
         
         
+    }
+    
+    
+    func playPause(_ rect: CGRect){
+        if -rect.minX < (rect.width * 0.5) && rect.minX < (rect.width * 0.5) {
+            player?.play()
+        }else{
+            player?.pause()
+        }
+        
+        if rect.minX >= size.width || -rect.minX >= size.width {
+            player?.seek(to: .zero)
+        }
+    }
+    
+    //details viewbuilder
+    
+    @ViewBuilder
+    func StoryDetailsView() -> some View {
+        
+        HStack(alignment: .bottom, spacing: 10){
+            VStack(alignment: .leading, spacing: 8, content: {
+               
+                    
+                    Text("player")
+                        .font(.callout)
+                        .lineLimit(1)
+                        .foregroundStyle(.white)
+                
+                Text("Lorem Ipsum is a dummy text of the printig and typesetting Industry")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(2)
+                    .clipped()
+            })
+            
+            Spacer(minLength: 0)
+            
+            
+            
+            
+        }
+        .padding(.leading, 15)
+        .padding(.trailing, 10)
+        .padding(.bottom, safeArea.bottom + 15)
     }
     
     //updating on End...
