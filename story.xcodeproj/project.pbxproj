@@ -21,6 +21,8 @@
 		3BBDB8152C54896500231724 /* Reel 2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3BBDB8122C54896500231724 /* Reel 2.mp4 */; };
 		3BBDB8162C54896500231724 /* Reel 3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3BBDB8132C54896500231724 /* Reel 3.mp4 */; };
 		3BBDB8172C54896500231724 /* Reel 1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3BBDB8142C54896500231724 /* Reel 1.mp4 */; };
+		3BBDB8192C55ABCD00231724 /* playerTimeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBDB8182C55ABCD00231724 /* playerTimeObserver.swift */; };
+		3BBDB81B2C55BF6100231724 /* trimmy.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3BBDB81A2C55BF6100231724 /* trimmy.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		3BBDB8122C54896500231724 /* Reel 2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Reel 2.mp4"; sourceTree = "<group>"; };
 		3BBDB8132C54896500231724 /* Reel 3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Reel 3.mp4"; sourceTree = "<group>"; };
 		3BBDB8142C54896500231724 /* Reel 1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Reel 1.mp4"; sourceTree = "<group>"; };
+		3BBDB8182C55ABCD00231724 /* playerTimeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerTimeObserver.swift; sourceTree = "<group>"; };
+		3BBDB81A2C55BF6100231724 /* trimmy.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trimmy.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,7 @@
 			children = (
 				3BBDB8052C53D24B00231724 /* Home.swift */,
 				3BBDB80B2C53F02600231724 /* StoryView.swift */,
+				3BBDB8182C55ABCD00231724 /* playerTimeObserver.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -107,6 +112,7 @@
 				3BBDB8072C53D33100231724 /* StoryBundle.swift */,
 				3BBDB8142C54896500231724 /* Reel 1.mp4 */,
 				3BBDB8122C54896500231724 /* Reel 2.mp4 */,
+				3BBDB81A2C55BF6100231724 /* trimmy.mp4 */,
 				3BBDB8132C54896500231724 /* Reel 3.mp4 */,
 			);
 			path = Model;
@@ -192,6 +198,7 @@
 				3BBDB8152C54896500231724 /* Reel 2.mp4 in Resources */,
 				3BBDB8172C54896500231724 /* Reel 1.mp4 in Resources */,
 				3BBDB7F92C53D19800231724 /* Assets.xcassets in Resources */,
+				3BBDB81B2C55BF6100231724 /* trimmy.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BBDB80A2C53D44700231724 /* StoryViewModel.swift in Sources */,
+				3BBDB8192C55ABCD00231724 /* playerTimeObserver.swift in Sources */,
 				3BBDB7F52C53D19600231724 /* ContentView.swift in Sources */,
 				3BBDB80F2C54746800231724 /* preferencekeys.swift in Sources */,
 				3BBDB8112C5474A500231724 /* customVideoPlayer.swift in Sources */,
